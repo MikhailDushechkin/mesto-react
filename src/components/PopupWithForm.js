@@ -1,43 +1,24 @@
-import Popup from "./Popup.js";
+import React from "react";
 
-export default class PopupWithForm extends Popup {
-  constructor(popupSelector, submitForm) {
-    super(popupSelector);
-
-    this._submitForm = submitForm;
-    this._form = this._popupElement.querySelector('.form');
-    this._popupButton = this._popupElement.querySelector('.form__save-button')
-    this._inputList = this._popupElement.querySelectorAll('.form__input');
-  }
-
-  _getInputValues() {
-    this._values = {};
-
-    this._inputList.forEach(element => {
-      this._values[element.name] = element.value;
-    });
-
-    return this._values;
-  }
-
-  setEventListeners() {
-    super.setEventListeners();
-    this._popupElement.addEventListener('submit', (evt) => {
-      evt.preventDefault();
-      this._submitForm(this._getInputValues());
-    })
-  }
-
-  renderLoading(isLoading) {
-    if(isLoading) {
-      this._popupButton.textContent = 'Сохранение...'
-    } else {
-      this._popupButton.textContent = 'Сохранить'
-    }
-  }
-
-  close() {
-    this._form.reset();
-    super.close();
-  }
+function PopupWithForm(props) {
+  return (
+    <div className={`popup ${props.name}-popup`}>
+      <div className="popup__container">
+        <form className={`form ${props.name}-form`} name={props.name} noValidate>
+          <h2 className="form__title">{props.title}</h2>
+          {props.children}
+          <button type="submit" className="form__save-button">
+            {props.buttonText}
+          </button>
+        </form>
+        <button
+          type="button"
+          className={`popup__close-button ${props.name}-popup__close-button`}
+          aria-label="Закрыть поп-ап"
+        ></button>
+      </div>
+    </div>
+  );
 }
+
+export default PopupWithForm;
