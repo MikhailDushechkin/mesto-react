@@ -1,3 +1,4 @@
+import React from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import Main from "./Main";
@@ -5,10 +6,34 @@ import PopupWithForm from "./PopupWithForm";
 import ImagePopup from "./ImagePopup";
 
 function App() {
+  const [isEditProfilePopupOpen, setEditProfilePopupOpen] = React.useState(false);
+  const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false);
+  const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false);
+
+  function handleEditAvatarClick() {
+    setEditAvatarPopupOpen(!isEditAvatarPopupOpen);
+  }
+  function handleEditProfileClick() {
+    setEditProfilePopupOpen(!isEditProfilePopupOpen);
+  }
+  function handleAddPlaceClick() {
+    setAddPlacePopupOpen(!isAddPlacePopupOpen);
+  }
+
+  function closeAllPopups() {
+    setEditProfilePopupOpen(false);
+    setAddPlacePopupOpen(false);
+    setEditAvatarPopupOpen(false);
+  }
+
   return (
     <>
       <Header />
-      <Main />
+      <Main
+        onEditProfile={handleEditProfileClick}
+        onAddPlace={handleAddPlaceClick}
+        onEditAvatar={handleEditAvatarClick}
+      />
       <Footer />
       <PopupWithForm
         name="avatar"
@@ -31,6 +56,8 @@ function App() {
           </>
         }
         buttonText="Сохранить"
+        isOpen={isEditAvatarPopupOpen}
+        onClose={closeAllPopups}
       />
       <PopupWithForm
         name="profile"
@@ -68,6 +95,8 @@ function App() {
           </>
         }
         buttonText="Сохранить"
+        isOpen={isEditProfilePopupOpen}
+        onClose={closeAllPopups}
       />
       <PopupWithForm
         name="cards"
@@ -103,6 +132,8 @@ function App() {
           </>
         }
         buttonText="Создать"
+        isOpen={isAddPlacePopupOpen}
+        onClose={closeAllPopups}
       />
       <PopupWithForm name="confirm" title="Вы уверены?" buttonText="Да" />
       <ImagePopup />
