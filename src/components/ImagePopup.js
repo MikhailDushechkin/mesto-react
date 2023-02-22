@@ -1,15 +1,16 @@
 import React from "react";
 
-function ImagePopup() {
+function ImagePopup(props) {
   return (
-    <div className="popup overlay-photo">
+    <div className={`popup overlay-photo ${props.card && 'popup_opened'}`}>
       <div className="overlay-photo__container">
-        <img src="#" alt="" className="overlay-photo__image" />
-        <h2 className="overlay-photo__description"></h2>
+        <img src={props.card ? props.card.link : ''} alt={props.card ? props.card.name : ''} className="overlay-photo__image" />
+        <h2 className="overlay-photo__description">{props.card.name}</h2>
         <button
           type="button"
           className="popup__close-button overlay-photo__close-button"
           aria-label="Закрыть поп-ап"
+          onClick={props.onClose}
         ></button>
       </div>
     </div>
