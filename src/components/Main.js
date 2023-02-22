@@ -3,9 +3,9 @@ import api from "../utils/Api";
 import Card from "./Card";
 
 function Main(props) {
-  const [userName, setUserName] = React.useState("");
-  const [userDescription, setUserDescription] = React.useState("");
-  const [userAvatar, setUserAvatar] = React.useState("");
+  const [userName, setUserName] = React.useState('');
+  const [userDescription, setUserDescription] = React.useState('');
+  const [userAvatar, setUserAvatar] = React.useState('');
 
   const [cards, setCards] = React.useState([]);
 
@@ -58,7 +58,7 @@ function Main(props) {
       <section className="photo-cards">
         <ul className="photo-cards__list">
           {cards.map((card) => (
-            <Card card={card} key={card._id} onCardClick ={props.onCardClick}/>
+            <Card card={card} key={card._id} onCardClick={props.onCardClick} />
           ))}
         </ul>
       </section>

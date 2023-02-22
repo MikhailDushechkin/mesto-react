@@ -29,7 +29,7 @@ function App() {
     setEditProfilePopupOpen(false);
     setAddPlacePopupOpen(false);
     setEditAvatarPopupOpen(false);
-    setSelectedCard(false)
+    setSelectedCard(false);
   }
 
   return (
@@ -39,7 +39,7 @@ function App() {
         onEditProfile={handleEditProfileClick}
         onAddPlace={handleAddPlaceClick}
         onEditAvatar={handleEditAvatarClick}
-        onCardClick ={handleCardClick}
+        onCardClick={handleCardClick}
       />
       <Footer />
       <PopupWithForm
@@ -143,10 +143,7 @@ function App() {
         onClose={closeAllPopups}
       />
       <PopupWithForm name="confirm" title="Вы уверены?" buttonText="Да" />
-      <ImagePopup
-      card = {selectedCard}
-      onClose = {closeAllPopups}
-      />
+      <ImagePopup card={selectedCard} onClose={closeAllPopups} />
     </>
   );
 }
