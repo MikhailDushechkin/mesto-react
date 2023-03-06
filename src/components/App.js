@@ -1,15 +1,27 @@
 import React from "react";
+import api from "../utils/Api";
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
 import PopupWithForm from "./PopupWithForm";
 import ImagePopup from "./ImagePopup";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 function App() {
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = React.useState('');
   const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState('');
   const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState('');
   const [selectedCard, setSelectedCard] = React.useState(null);
+
+  const [currentUser, setCurrentUser] = React.useState('');
+
+  React.useEffect(() => {
+    api.getUserData()
+    .then((data) => {
+      setCurrentUser(data);
+    })
+    .catch((err) => console.log(err));
+  }, []);
 
   function handleEditAvatarClick() {
     setEditAvatarPopupOpen(!isEditAvatarPopupOpen);
@@ -34,7 +46,8 @@ function App() {
 
   return (
     <>
-      <Header />
+    <CurrentUserContext.Provider value={currentUser}>
+    <Header />
       <Main
         onEditProfile={handleEditProfileClick}
         onAddPlace={handleAddPlaceClick}
@@ -144,6 +157,8 @@ function App() {
       />
       <PopupWithForm name="confirm" title="Вы уверены?" buttonText="Да" />
       <ImagePopup card={selectedCard} onClose={closeAllPopups} />
+    </CurrentUserContext.Provider>
+
     </>
   );
 }

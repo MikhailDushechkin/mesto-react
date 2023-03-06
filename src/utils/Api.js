@@ -43,6 +43,14 @@ class Api {
     .then(this._checkResponse)
   }
 
+  changeLikeStatus(id, isLiked) {
+    if(isLiked) {
+      return this.setLike(id)
+    } else {
+      return this.deleteLike(id)
+    }
+  }
+
   //установка лайка
   setLike(id) {
     return fetch(`${this._url}/cards/${id}/likes`, {
