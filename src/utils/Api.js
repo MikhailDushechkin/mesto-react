@@ -97,7 +97,7 @@ class Api {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
-        avatar: userData.link
+        avatar: userData.avatar
       })
     })
     .then(this._checkResponse)
