@@ -5,6 +5,7 @@ import Main from "./Main";
 import Footer from "./Footer";
 import PopupWithForm from "./PopupWithForm";
 import ImagePopup from "./ImagePopup";
+import EditProfilePopup from "./EditProfilePopup";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 function App() {
@@ -22,6 +23,15 @@ function App() {
     })
     .catch((err) => console.log(err));
   }, []);
+
+  function handleUpdateUserData(userData) {
+    api.setUserData(userData)
+    .then((data) => {
+      setCurrentUser(data)
+      closeAllPopups();
+    })
+    .catch((err) => console.log(err))
+  }
 
   function handleEditAvatarClick() {
     setEditAvatarPopupOpen(!isEditAvatarPopupOpen);
@@ -79,44 +89,10 @@ function App() {
         isOpen={isEditAvatarPopupOpen}
         onClose={closeAllPopups}
       />
-      <PopupWithForm
-        name="profile"
-        title="Редактировать профиль"
-        children={
-          <>
-            <fieldset className="form__fieldset">
-              <label className="form__field">
-                <input
-                  type="text"
-                  id="profile-name"
-                  className="form__input"
-                  placeholder="Имя"
-                  name="name"
-                  minLength="2"
-                  maxLength="40"
-                  required
-                />
-                <span className="form__input-error profile-name-error"></span>
-              </label>
-              <label className="form__field">
-                <input
-                  type="text"
-                  id="profile-description"
-                  className="form__input"
-                  placeholder="О себе"
-                  name="description"
-                  minLength="2"
-                  maxLength="200"
-                  required
-                />
-                <span className="form__input-error profile-description-error"></span>
-              </label>
-            </fieldset>
-          </>
-        }
-        buttonText="Сохранить"
-        isOpen={isEditProfilePopupOpen}
-        onClose={closeAllPopups}
+      <EditProfilePopup
+      isOpen={isEditProfilePopupOpen}
+      onClose={closeAllPopups}
+      onUpdateUserData={handleUpdateUserData}
       />
       <PopupWithForm
         name="cards"
