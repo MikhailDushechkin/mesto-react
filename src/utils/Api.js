@@ -43,6 +43,14 @@ class Api {
     .then(this._checkResponse)
   }
 
+  changeLikeStatus(id, isLiked) {
+    if(isLiked) {
+      return this.setLike(id)
+    } else {
+      return this.deleteLike(id)
+    }
+  }
+
   //установка лайка
   setLike(id) {
     return fetch(`${this._url}/cards/${id}/likes`, {
@@ -77,7 +85,7 @@ class Api {
       headers: this._headers,
       body: JSON.stringify({
         name: userData.name,
-        about: userData.description
+        about: userData.about
       })
     })
     .then(this._checkResponse)
@@ -89,7 +97,7 @@ class Api {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
-        avatar: userData.link
+        avatar: userData.avatar
       })
     })
     .then(this._checkResponse)
