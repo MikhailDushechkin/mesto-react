@@ -1,23 +1,25 @@
-import React from "react";
-import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import React from 'react';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
-function Card({card, onCardClick, onCardLike, onCardDelete}) {
+function Card({ card, onCardClick, onCardLike, onCardDelete }) {
   const currentUser = React.useContext(CurrentUserContext);
 
   const isOwnCard = card.owner._id === currentUser._id;
   const isLiked = card.likes.some((i) => i._id === currentUser._id);
-  const cardLikeButtonClassName = (`photo-cards__button-like ${isLiked && 'photo-cards__button-like_active'}`);
+  const cardLikeButtonClassName = `photo-cards__button-like ${
+    isLiked && 'photo-cards__button-like_active'
+  }`;
 
   function handleClick() {
     onCardClick(card);
   }
 
   function handleLikeClick() {
-    onCardLike(card)
+    onCardLike(card);
   }
 
   function handleDeleteClick() {
-    onCardDelete(card)
+    onCardDelete(card);
   }
 
   return (
@@ -30,7 +32,7 @@ function Card({card, onCardClick, onCardLike, onCardDelete}) {
       />
       <div
         className={`photo-cards__description ${
-          card.likes.length > 0 && "photo-cards__description_with-count"
+          card.likes.length > 0 && 'photo-cards__description_with-count'
         }`}
       >
         <h2 className="photo-cards__text">{card.name}</h2>
@@ -46,14 +48,14 @@ function Card({card, onCardClick, onCardLike, onCardDelete}) {
           </span>
         </div>
       </div>
-      {
-      isOwnCard && <button
-        className="photo-cards__button-del"
-        type="button"
-        aria-label="Удалить фото"
-        onClick={handleDeleteClick}
-      ></button>
-      }
+      {isOwnCard && (
+        <button
+          className="photo-cards__button-del"
+          type="button"
+          aria-label="Удалить фото"
+          onClick={handleDeleteClick}
+        ></button>
+      )}
     </li>
   );
 }

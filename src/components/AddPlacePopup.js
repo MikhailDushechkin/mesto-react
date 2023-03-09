@@ -1,5 +1,5 @@
-import React from "react";
-import PopupWithForm from "./PopupWithForm";
+import React from 'react';
+import PopupWithForm from './PopupWithForm';
 
 function AddPlacePopup({ isOpen, onClose, onAddCard }) {
   const [name, setName] = React.useState('');
@@ -22,6 +22,11 @@ function AddPlacePopup({ isOpen, onClose, onAddCard }) {
     });
   }
 
+  React.useEffect(() => {
+    setName('');
+    setLink('');
+  }, [isOpen]);
+
   return (
     <PopupWithForm
       name="cards"
@@ -42,6 +47,7 @@ function AddPlacePopup({ isOpen, onClose, onAddCard }) {
                 minLength="2"
                 maxLength="30"
                 required
+                value={name}
                 onChange={handleAddPlace}
               />
               <span className="form__input-error photo-name-error"></span>
@@ -54,6 +60,7 @@ function AddPlacePopup({ isOpen, onClose, onAddCard }) {
                 placeholder="Ссылка на картинку"
                 name="link"
                 required
+                value={link}
                 onChange={handleAddPlace}
               />
               <span className="form__input-error photo-link-error"></span>
